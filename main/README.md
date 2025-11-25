@@ -1,4 +1,4 @@
-
+# CHEM: Estimating and Understanding Hallucinations in Deep Learning for Image Processing
 ## Overview
 
 This codebase provides tools for analyzing and visualizing hallucination artifacts in deep learning model predictions. The implementation includes training scripts for multiple architectures (U-Net, SUNet, Learnlets) with different loss functions, evaluation frameworks for hallucination detection, and comprehensive visualization tools.
@@ -108,5 +108,6 @@ To reproduce the results presented in the paper:
 
 
  
+
 
 
