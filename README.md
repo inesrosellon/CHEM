@@ -1,9 +1,12 @@
 # CHEM: Estimating and Understanding Hallucinations in Deep Learning for Image Processing
+[![arXiv](https://img.shields.io/badge/arXiv-2403.13458-b31b1b.svg)](link)
+
 ## Overview
 
 This codebase provides tools for analyzing and visualizing hallucination artifacts in deep learning model predictions. The implementation includes training scripts for multiple architectures (U-Net, SUNet, Learnlets) with different loss functions, evaluation frameworks for hallucination detection, and comprehensive visualization tools.
 
-**Note:** In this codebase, the metric is referred to as "HIC"  (Hallucination Index Coefficient) or "R", which was later renamed to "CHEM" (Coefficient-based Hallucination Evaluation Metric) in the final paper. Variable names and function references will be updated upon acceptance.
+**Note:** In this codebase, the metric is referred to as "HIC"  or "R", which was later renamed to "CHEM" (Conformal Hallucination Evaluation Metric). Variable names and function references will be updated.
+If you have questions regarding this work or want to collaborate, feel free to reach out.
 
 ## Repository Structure
 
@@ -108,6 +111,7 @@ To reproduce the results presented in the paper:
 
 
  
+
 
 
 
