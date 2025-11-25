@@ -1,4 +1,3 @@
-# Supplementary Code 14163
 
 ## Overview
 
@@ -93,19 +92,20 @@ To reproduce the results presented in the paper:
 ### Adapted Code
 
 - **Conformalized Quantile Regression (`src/utils/cqr.py`)**  
-  Adapted from *H. Leterme and A. Tersenov*, “Weak Lensing Uncertainty Quantification Project,” 2021. Original methods described in:  
+  Adapted from *H. Leterme and A. Tersenov*, “Weak Lensing Uncertainty Quantification Project,” 2021. https://github.com/hubert-leterme/weaklensing_uq/blob/master/wlmmuq/models/cqr.py  Original methods described in:  
   [1] H. Leterme, J. Fadili, and J.-L. Starck, “Distribution-free uncertainty quantification for inverse problems: Application to weak lensing mass mapping,” *A&A*, vol. 694, p. A267, Feb. 2025. 
 
 - **SUNet Model, Training Scripts, and Utilities**  
-  Adapted from *U. Akhaury*, “SUNet Project,” 2022.  
+  Adapted from *U. Akhaury*, “SUNet Project,” 2022. https://github.com/utsav-akhaury/SUNet/tree/main 
   Original method described in:  
   [2] K. Fan, S. X. Yu, and X. Jin, “SUNet: Swin Transformer UNet for Image Denoising,” arXiv:2202.14009, 2022.  
   [3] U. Akhaury, P. Jablonka, J.-L. Starck, & F. Courbin, "Ground-based image deconvolution with Swin Transformer UNet," *A&A*, 688, A6, 2024.
 
 - **Learnlet Transform (`src/train/model/LearnLet.py`)**  
-  Adapted from *V. Bonjean*, “Learnlet Repository,” 2025.  
+  Adapted from *V. Bonjean*, “Learnlet Repository,” 2025. https://github.com/vicbonj/learnlet/blob/main/learnlet.py 
   Original methods described in:  
   [4] A. Ramzi, J. Fadili, and J.-L. Starck, “Learnlets: Learning Wavelets from Data,” arXiv:2008.10317, 2020.
 
 
  
+
