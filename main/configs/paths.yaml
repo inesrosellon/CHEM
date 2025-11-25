@@ -1,0 +1,6 @@
+data_file: "/data/TEST_candels_lsst_sim.pkl"
+x_train_file: "/data/x_train.npy"
+y_train_file: "/data/y_train.npy"
+results_dir: "results"
+checkpoints_dir: "src/models"
+weights_dir: "/path/to/weights"
