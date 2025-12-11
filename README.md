@@ -1,5 +1,6 @@
 # CHEM: Estimating and Understanding Hallucinations in Deep Learning for Image Processing
-[![arXiv](https://img.shields.io/badge/arXiv-2403.13458-b31b1b.svg)](link)
+[![arXiv](https://img.shields.io/badge/arXiv-2403.13458-b31b1b.svg)](
+http://arxiv.org/abs/2512.09806)
 
 ## Overview
 
@@ -111,6 +112,7 @@ To reproduce the results presented in the paper:
 
 
  
+
 
 
 
