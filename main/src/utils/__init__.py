@@ -72,7 +72,7 @@ method_type = _get_method_from_filename()
 
 try:
     if sweep_type == 'noise':
-        from .cqr_noise import *
+        from .cqr import *
         print(f"Auto-detected: Using CQR for noise level variation (from {os.path.basename(sys.argv[0]) if sys.argv else 'unknown script'})")
         if method_type == 'base':
             from .HIC_noise_base_utils import *
@@ -81,7 +81,7 @@ try:
             from .HIC_noise_wavelet_utils import *
             print("Auto-detected: Using wavelet utilities")
     elif sweep_type == 'psf':
-        from .cqr_fwhm import *
+        from .cqr import *
         print(f"Auto-detected: Using CQR for psf- FWHM variation (from {os.path.basename(sys.argv[0]) if sys.argv else 'unknown script'})")
         if method_type == 'base':
             from .HIC_psf_fwhm_base_utils import *
@@ -90,16 +90,16 @@ try:
         if method_type == 'shearlet':
             from .HIC_psf_fwhm_shearlet_utils import *
     elif sweep_type == 'galaxy':
-        from .cqr_galaxy_fwhm import *
+        from .cqr import *
         print(f"Auto-detected: Using CQR for FWHM galaxy variation (from {os.path.basename(sys.argv[0]) if sys.argv else 'unknown script'})")
     else:
         # Default fallback
-        from .cqr_noise import *
+        from .cqr import *
         print(f"Unknown sweep type '{sweep_type}', defaulting to noise CQR")
 except ImportError as e:
     print(f"Warning: Could not import CQR module for '{sweep_type}': {e}")
     try:
-        from .cqr_noise import *
+        from .cqr import *
         print("Falling back to noise CQR module")
     except ImportError:
         print("Error: No CQR module could be imported") 

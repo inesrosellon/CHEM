@@ -129,10 +129,6 @@ class AddCQR:
     #     return np.abs(pred_calib - input_calib) - interval_calib
         
     def _conformity_scores(self, pred_calib, label_calib, interval_calib): # res_calib could be anything
-        # print('pred_calib ', pred_calib.shape)
-        # print('label_calib ', label_calib.shape)
-        # print('interval_calib ', interval_calib.shape)
-        
         return np.abs(pred_calib - label_calib) - interval_calib
 
 
@@ -202,7 +198,6 @@ def model_inference(model, input_cal0, device):
     
     
     restored_cal0 = torch.zeros(input_cal0.size())
-    print('inference: input dataset size: ', input_cal0.size())
 
     process_bs = 100
     for i in range(0, input_cal0.size()[0], process_bs):
@@ -213,8 +208,7 @@ def model_inference(model, input_cal0, device):
             ind = i + process_bs
 
         input_ = input_cal0[i:ind].to(device)
-        #print('cal0 bs: ', input_.size())
-        
+
         with torch.no_grad():
             restored_cal0[i:ind] = model(input_)
             
@@ -232,37 +226,27 @@ def confidence_radius(model, input_cal0, label_cal0, input_cal1, label_cal1, alp
     
     # Convert arrays
     restored_cal0 = np.squeeze(restored_cal0.cpu().detach().numpy())
-    #input_cal0 = np.squeeze(input_cal0.permute(0, 2, 3, 1).cpu().detach().numpy())
     label_cal0 = np.squeeze(label_cal0.detach().numpy())
-    
-    #print('^^^ x_cal shape: ', x_cal.shape)
-    
+
     CQR_initial = BaseCQR(alpha)
     interval_intial = CQR_initial.conformalize(restored_cal0, label_cal0)
-    
+
     shape = label_cal1.shape
-    # print('cal1.shape ', shape)
-    # print('interval initial ', interval_intial.shape)
-    
+
     interval_intial_un = torch.tensor(interval_intial,dtype=torch.float)
     interval_intial_un = interval_intial_un.unsqueeze(0).unsqueeze(0).expand(shape[0], shape[1], -1, -1)
     interval_intial_un = interval_intial_un.numpy()
-    
-    # print('interval un.shape ', interval_intial_un.shape)
-    
+
     del restored_cal0, input_cal0, label_cal0
-    
-    # print('input_cal1 ', input_cal1.shape)
+
     restored_cal1 = model_inference(model, input_cal1, device)
-    # print('restored_cal1 ', restored_cal1.shape)
-    
+
     restored_cal1 = np.squeeze(restored_cal1.cpu().detach().numpy())
     label_cal1 = np.squeeze(label_cal1.detach().numpy())
     interval_intial_un = np.squeeze(interval_intial_un)
-    
+
     CQRadd = AddCQR(alpha)
-    # print('restored_cal1 ', restored_cal1.shape)
-    
+
     interval_final = CQRadd.conformalize(pred_calib = restored_cal1, label_calib = label_cal1, interval_calib = interval_intial_un, interval_test = interval_intial)
     
     return interval_final
@@ -309,12 +293,7 @@ def test_measurements(model, input_, label_, device):
             restored = model(input_)
             if restored.size() != target.size():
                 restored = interpolate(restored, size=(target.size()[-2], target.size()[-1]), mode='nearest-exact')
-        
-        
-        # print('max input ', torch.max(torch.abs(input_)))
-        # print('max label ', torch.max(torch.abs(target)))
-        # print('max predi ', torch.max(torch.abs(restored)))
-            
+
         psnr_rgb.append(tPSNR(restored, target).item())
         ssim_rgb.append(tSSIM(restored, target).item())
         
@@ -331,64 +310,3 @@ def test_measurements(model, input_, label_, device):
     
             
     return np.array(psnr_rgb), np.array(ssim_rgb), np.array(psnr_in), np.array(ssim_in),
-
-
-if __name__ == "__main__":
-    
-    # pred_calib, input_calib, interval_calib, interval_test
-    
-    pred_calib     = np.random.rand(1000, 128, 128)  #f(x)
-    label_calib    = np.random.rand(1000,128,128)     # r(x) test
-    interval_calib = np.random.rand(1000,128,128)     # r(x) test
-    interval_test  = np.random.rand(1000,128,128)   # y
-    
-    #CQR = AddCQR(alpha = 0.01)
-    BaseCQR = BaseCQR(alpha = 0.01)
-    
-    interval_radius = BaseCQR.conformalize(pred_calib, label_calib)
-    
-    print('interval_radiu ', interval_radius.shape)
-    
-    AddCQR = AddCQR(alpha = 0.01)
-    #interval_better = AddCQR.conformalize(pred_calib, input_calib, interval_calib, interval_test)
-    interval_better = AddCQR.conformalize(pred_calib, label_calib, interval_radius, interval_test)
-
-    
-    print('interval_better ',interval_better.shape)
-    
-    print('interval-interval_better ', np.sum(np.abs(interval_radius - interval_better)))
-    
-    
-    
-    x = torch.rand(2,2)
-    a = torch.repeat_interleave(x,3,dim = 0)
-    
-    
-    a = np.percentile(pred_calib, 99, axis=0)
-    
-    a = torch.from_numpy(a)
-    print('a.shape ', a.shape)
-    b = a.unsqueeze(0).unsqueeze(0)
-    print('b.shape', b.shape)
-    shape = b.shape
-    c = b.expand(shape[0], shape[1], -1, -1)
-    print('c.shape', c.shape)    
-    
-    
-    
-    d = a.unsqueeze(0).unsqueeze(0).expand(1000, 2, -1, -1)
-    print('d.shape', d.shape)
-    
-    i=0
-    j=1
-    print(d[i,j,:,:]- a)
-    
-    matrix = [[1, 2, 3],
-           [4, 5, 6],
-           [7, 8, 9],
-           [10,11,12]]
-    
-    tensor = torch.tensor(matrix)
-    tensor = tensor.float()
-    
-    print(torch.mean(tensor, dim=1))

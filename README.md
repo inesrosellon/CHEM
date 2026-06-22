@@ -76,12 +76,12 @@ The codebase requires separate environments depending on the analysis type:
 
 ### For Wavelet Analysis
 ```bash
-pip install -r requirements_wavelets.txt
+pip install -r requirements_wavelet.txt
 ```
 
 ### For Shearlet Analysis
 ```bash
-pip install -r requirements_shearlets.txt
+pip install -r requirements_shearlet.txt
 ```
 
 ### For DeepInv-based Analysis (super-resolution notebooks)

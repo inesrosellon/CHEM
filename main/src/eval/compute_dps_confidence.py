@@ -147,7 +147,7 @@ print(f"  Total calibration patches: {len(x_cal)}")
 # Compute confidence interval using CQR (Conformalized Quantile Regression)
 print("Computing confidence interval...")
 
-from src.utils.cqr2 import confidence_radius
+from src.utils.cqr import confidence_radius
 
 # Split calibration data into two sets
 n_cal0 = 100
@@ -222,7 +222,6 @@ for name, model in models.items():
             label_cal1=x_cal1,
             alpha=alpha,
             device=device,
-            batch_size = 1
         )
         
         # Average if per-channel radius
